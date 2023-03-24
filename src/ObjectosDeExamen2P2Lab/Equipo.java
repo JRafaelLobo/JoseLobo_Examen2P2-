@@ -8,6 +8,11 @@ public class Equipo {
     public Equipo() {
     }
 
+    public Equipo(String nombre) {
+        this.nombre = nombre;
+        puntos = 0;
+    }
+
     public Equipo(String nombre, int puntos) {
         this.nombre = nombre;
         this.puntos = puntos;
@@ -31,7 +36,7 @@ public class Equipo {
 
     @Override
     public String toString() {
-        return nombre;
+        return "(Equipo) " + nombre + ": " + puntos;
     }
 
 }

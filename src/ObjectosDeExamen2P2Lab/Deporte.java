@@ -32,7 +32,7 @@ public class Deporte {
 
     @Override
     public String toString() {
-        return NombreDelDeporte;
+        return "(Deporte) "+NombreDelDeporte;
     }
 
 }

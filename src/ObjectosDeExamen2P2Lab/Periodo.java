@@ -21,7 +21,7 @@ public class Periodo {
 
     @Override
     public String toString() {
-        return NombreDelPeriodo ;
+        return "(Periodo) "+NombreDelPeriodo ;
     }
 
 }

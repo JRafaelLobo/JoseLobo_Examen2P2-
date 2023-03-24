@@ -46,4 +46,9 @@ public class Torneo {
         this.periodo = periodo;
     }
 
+    @Override
+    public String toString() {
+        return "(Torneo) "+Nombre;
+    }
+
 }
