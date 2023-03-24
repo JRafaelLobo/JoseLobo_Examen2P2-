@@ -58,7 +58,7 @@ public class Partido {
 
     @Override
     public String toString() {
-        return "Partidos{" + "nombres=" + nombres[0] + "," + nombres[1] + " puntos=" + puntos[0] + "," + puntos[1] + '}';
+        return nombres[0] + ": " + puntos[0] + " vs " + nombres[0] + ": " + puntos[0];
     }
 
 }

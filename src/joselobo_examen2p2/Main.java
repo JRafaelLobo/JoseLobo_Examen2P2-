@@ -115,6 +115,11 @@ public class Main extends javax.swing.JFrame {
         jS_PuntosEquipo2.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
 
         B_CrearPartido.setText("Crear Partido");
+        B_CrearPartido.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                B_CrearPartidoMouseClicked(evt);
+            }
+        });
 
         B_Retornar.setText("Retornar");
         B_Retornar.addActionListener(new java.awt.event.ActionListener() {
@@ -128,17 +133,16 @@ public class Main extends javax.swing.JFrame {
         jF_CrearPartidoLayout.setHorizontalGroup(
             jF_CrearPartidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jF_CrearPartidoLayout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addGroup(jF_CrearPartidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jcb_Equipo1, 0, 116, Short.MAX_VALUE)
-                    .addComponent(jS_PuntosEquipo1))
-                .addGap(69, 69, 69)
                 .addGroup(jF_CrearPartidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jS_PuntosEquipo2, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
-                    .addComponent(jcb_Equipo2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(51, 51, 51))
-            .addGroup(jF_CrearPartidoLayout.createSequentialGroup()
-                .addGroup(jF_CrearPartidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jF_CrearPartidoLayout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addGroup(jF_CrearPartidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jcb_Equipo1, 0, 137, Short.MAX_VALUE)
+                            .addComponent(jS_PuntosEquipo1))
+                        .addGap(48, 48, 48)
+                        .addGroup(jF_CrearPartidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jcb_Equipo2, 0, 134, Short.MAX_VALUE)
+                            .addComponent(jS_PuntosEquipo2)))
                     .addGroup(jF_CrearPartidoLayout.createSequentialGroup()
                         .addGap(143, 143, 143)
                         .addGroup(jF_CrearPartidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,7 +151,7 @@ public class Main extends javax.swing.JFrame {
                     .addGroup(jF_CrearPartidoLayout.createSequentialGroup()
                         .addGap(162, 162, 162)
                         .addComponent(lb_Partido)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         jF_CrearPartidoLayout.setVerticalGroup(
             jF_CrearPartidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -326,6 +330,24 @@ public class Main extends javax.swing.JFrame {
 
     }//GEN-LAST:event_B_RetornarActionPerformed
 
+    private void B_CrearPartidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_B_CrearPartidoMouseClicked
+
+        if ((jcb_Equipo1.getSelectedIndex() == -1 || jcb_Equipo2.getSelectedIndex() == -1) && ()) {
+            JOptionPane.showConfirmDialog(jF_CrearPartido, "No se puede Crear el partido, falta un dato", "Error", 0);
+        } else {
+            Partido P = new Partido();
+            P.setNombreEquipo1(jcb_Equipo1.getSelectedItem().toString());
+            P.setNombreEquipo2(jcb_Equipo2.getSelectedItem().toString());
+            P.setPuntoEquipo1((int) jS_PuntosEquipo1.getValue());
+            P.setPuntoEquipo2((int) jS_PuntosEquipo2.getValue());
+
+            DefaultMutableTreeNode Da = new DefaultMutableTreeNode(P);
+            nodo_seleccionado.add(Da);
+            modelo.reload();
+        }
+
+    }//GEN-LAST:event_B_CrearPartidoMouseClicked
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -399,5 +421,10 @@ public class Main extends javax.swing.JFrame {
             Equipo c = (Equipo) b.getUserObject();
             comboBox.addItem(c.toString());
         }
+    }
+
+    public boolean MasdeDosEquipos() {
+        DefaultMutableTreeNode Da = (DefaultMutableTreeNode) nodo_seleccionado.getParent();
+        Da.
     }
 }
