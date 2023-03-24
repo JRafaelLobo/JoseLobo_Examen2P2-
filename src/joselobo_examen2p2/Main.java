@@ -251,11 +251,37 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_JTree_TorneosMouseClicked
 
     private void jM_GuardarDeporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jM_GuardarDeporteActionPerformed
-        // TODO add your handling code here:
+        DefaultMutableTreeNode NodoDeporteQ1;
+        DefaultMutableTreeNode NodoDeporteQ2;
+        DefaultMutableTreeNode NodoDeporteQ4;
+        DefaultMutableTreeNode NodoDeporteQ5;
+
         JFileChooser jf = new JFileChooser();
         jf.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         jf.showOpenDialog(this);
         File archivoElegido = jf.getSelectedFile();
+        for (int i = 0; i < raiz.getChildCount(); i++) {
+            DefaultMutableTreeNode Nodo1 = (DefaultMutableTreeNode) raiz.getChildAt(i);
+            for (int j = 0; j < Nodo1.getChildCount(); j++) {
+                DefaultMutableTreeNode Nodo2 = (DefaultMutableTreeNode) Nodo1.getChildAt(i);
+                switch (j) {
+                    case 0:
+
+                        break;
+                    case 1:
+
+                        break;
+                    case 2:
+
+                        break;
+                    case 3:
+
+                        break;
+                    default:
+                        throw new AssertionError();
+                }
+            }
+        }
     }//GEN-LAST:event_jM_GuardarDeporteActionPerformed
 
     private void jM_CrearDeporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jM_CrearDeporteActionPerformed
@@ -314,13 +340,17 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jM_CrearEquiposActionPerformed
 
     private void jM_CrearPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jM_CrearPartidoActionPerformed
+        if (MasdeUnoEquipo()) {
+            llenarComboBox(jcb_Equipo1);
+            llenarComboBox(jcb_Equipo2);
+            jF_CrearPartido.pack();
+            jF_CrearPartido.setLocationRelativeTo(this);
+            jF_CrearPartido.setVisible(true);
+            this.setVisible(false);
+        } else {
+            JOptionPane.showConfirmDialog(this, "Ocupa al menos 2 Equipos", "Error", 1);
+        }
 
-        llenarComboBox(jcb_Equipo1);
-        llenarComboBox(jcb_Equipo2);
-        jF_CrearPartido.pack();
-        jF_CrearPartido.setLocationRelativeTo(this);
-        jF_CrearPartido.setVisible(true);
-        this.setVisible(false);
     }//GEN-LAST:event_jM_CrearPartidoActionPerformed
 
     private void B_RetornarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_RetornarActionPerformed
@@ -332,14 +362,15 @@ public class Main extends javax.swing.JFrame {
 
     private void B_CrearPartidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_B_CrearPartidoMouseClicked
 
-        if ((jcb_Equipo1.getSelectedIndex() == -1 || jcb_Equipo2.getSelectedIndex() == -1) && ()) {
-            JOptionPane.showConfirmDialog(jF_CrearPartido, "No se puede Crear el partido, falta un dato", "Error", 0);
+        if (jcb_Equipo1.getSelectedIndex() == -1 || jcb_Equipo2.getSelectedIndex() == -1) {
+            JOptionPane.showConfirmDialog(jF_CrearPartido, "No se puede Crear el partido, falta un dato", "Error", 1);
         } else {
             Partido P = new Partido();
             P.setNombreEquipo1(jcb_Equipo1.getSelectedItem().toString());
             P.setNombreEquipo2(jcb_Equipo2.getSelectedItem().toString());
             P.setPuntoEquipo1((int) jS_PuntosEquipo1.getValue());
             P.setPuntoEquipo2((int) jS_PuntosEquipo2.getValue());
+            JOptionPane.showConfirmDialog(jF_CrearPartido, "Se ha Creado el partido con Exito", "Exito", 1);
 
             DefaultMutableTreeNode Da = new DefaultMutableTreeNode(P);
             nodo_seleccionado.add(Da);
@@ -423,8 +454,13 @@ public class Main extends javax.swing.JFrame {
         }
     }
 
-    public boolean MasdeDosEquipos() {
+    public boolean MasdeUnoEquipo() {
         DefaultMutableTreeNode Da = (DefaultMutableTreeNode) nodo_seleccionado.getParent();
-        Da.
+        DefaultMutableTreeNode Db = (DefaultMutableTreeNode) Da.getChildAt(1);
+        if (Db.getChildCount() > 1) {
+            return true;
+        }
+        return false;
     }
+
 }
