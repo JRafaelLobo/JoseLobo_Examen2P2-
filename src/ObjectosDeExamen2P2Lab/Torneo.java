@@ -1,8 +1,9 @@
 package ObjectosDeExamen2P2Lab;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Torneo {
+public class Torneo implements Serializable {
 
     String Nombre;
     ArrayList<Equipo> equipos = new ArrayList<>();

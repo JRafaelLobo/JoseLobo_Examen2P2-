@@ -13,8 +13,13 @@ public class AdminBinario {
         this.D = D;
     }
 
-    public AdminBinario(String ruta) {
+    public AdminBinario(String ruta ,Deporte D) {
         this.archivo = new File(ruta);
+        this.D = D;
+    }
+
+    public AdminBinario(File archivo) {
+        this.archivo = archivo;
     }
 
     
@@ -57,6 +62,14 @@ public class AdminBinario {
             } catch (Exception ex) {
             }
         }
+    }
+
+    public Deporte getD() {
+        return D;
+    }
+
+    public void setD(Deporte D) {
+        this.D = D;
     }
 
 }

@@ -1,6 +1,8 @@
 package ObjectosDeExamen2P2Lab;
 
-public class Partido {
+import java.io.Serializable;
+
+public class Partido implements Serializable {
 
     String[] nombres = new String[2];
     int[] puntos = new int[2];

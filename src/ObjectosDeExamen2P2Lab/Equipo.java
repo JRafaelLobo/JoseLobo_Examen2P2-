@@ -1,6 +1,8 @@
 package ObjectosDeExamen2P2Lab;
 
-public class Equipo {
+import java.io.Serializable;
+
+public class Equipo implements Serializable {
 
     private String nombre;
     private int puntos;

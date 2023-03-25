@@ -291,7 +291,7 @@ public class Main extends javax.swing.JFrame {
                             T.addEquipo((Equipo) NodoEquipos2.getUserObject());
                         }
                         D.addTorneo(T);
-                        AdminBinario Admin = new AdminBinario(path + "\\Logo.dp");
+                        AdminBinario Admin = new AdminBinario(path + "\\Logo.dp", D);
                         Admin.escribirArchivo();
                     }
                 }
@@ -320,6 +320,17 @@ public class Main extends javax.swing.JFrame {
         int respuesta = fc.showOpenDialog(this);
         if (respuesta == JFileChooser.APPROVE_OPTION) {
             File archivoElegido = fc.getSelectedFile();
+            AdminBinario A = new AdminBinario(archivoElegido);
+            A.cargarArchivo();
+            Deporte deporte = A.getD();
+
+            //anadir deporte a todas
+            for (int i = 0; i < raiz.getChildCount(); i++) {
+                DefaultMutableTreeNode Nodo = (DefaultMutableTreeNode) raiz.getChildAt(i);
+                DefaultMutableTreeNode nodoDeporte = new DefaultMutableTreeNode(deporte);
+                Nodo.add(nodoDeporte);
+            }
+            modelo.reload();
         }
     }//GEN-LAST:event_jM_CargarDeporteActionPerformed
 
