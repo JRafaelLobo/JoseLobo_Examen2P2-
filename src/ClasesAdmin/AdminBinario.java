@@ -2,29 +2,36 @@ package ClasesAdmin;
 
 import ObjectosDeExamen2P2Lab.*;
 import java.io.*;
-import java.util.ArrayList;
 
 public class AdminBinario {
 
     File archivo;
-    ArrayList<Deporte> deportes = new ArrayList();
+    Deporte D;
+
+    public AdminBinario(File archivo, Deporte D) {
+        this.archivo = archivo;
+        this.D = D;
+    }
+
+    public AdminBinario(String ruta) {
+        this.archivo = new File(ruta);
+    }
+
+    
 
     public void cargarArchivo() {
         try {
-            deportes = new ArrayList();
-            Deporte temp;
+            Deporte temp = new Deporte();
             if (archivo.exists()) {
                 FileInputStream entrada = new FileInputStream(archivo);
                 ObjectInputStream objeto = new ObjectInputStream(entrada);
                 try {
                     //datos
-
-                    while ((temp = (Deporte) objeto.readObject()) != null) {
-                        deportes.add(temp);
-                    }
+                    temp = (Deporte) objeto.readObject();
                 } catch (EOFException e) {
                     //encontro el final del archivo
                 }
+                D = temp;
                 objeto.close();
                 entrada.close();
             }
@@ -40,9 +47,7 @@ public class AdminBinario {
             fw = new FileOutputStream(archivo);
             bw = new ObjectOutputStream(fw);
             //datos
-            for (Deporte t : deportes) {
-                bw.writeObject(t);
-            }
+            bw.writeObject(D);
             bw.flush();
         } catch (Exception ex) {
         } finally {

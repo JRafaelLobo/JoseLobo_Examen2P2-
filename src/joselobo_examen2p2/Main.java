@@ -1,5 +1,6 @@
 package joselobo_examen2p2;
 
+import ClasesAdmin.AdminBinario;
 import ObjectosDeExamen2P2Lab.*;
 import java.io.File;
 import javax.swing.ImageIcon;
@@ -265,8 +266,8 @@ public class Main extends javax.swing.JFrame {
         jf.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         jf.showOpenDialog(this);
         File archivoElegido = jf.getSelectedFile();
+        String path = archivoElegido.getPath();
 
-        int TorneosTotales;
         //Analiza cuales otros nodos tiene ese mismo deporte
         for (int i = 0; i < raiz.getChildCount(); i++) {
             DefaultMutableTreeNode Nodo1 = (DefaultMutableTreeNode) raiz.getChildAt(i);
@@ -290,7 +291,8 @@ public class Main extends javax.swing.JFrame {
                             T.addEquipo((Equipo) NodoEquipos2.getUserObject());
                         }
                         D.addTorneo(T);
-                        System.out.println(D);
+                        AdminBinario Admin = new AdminBinario(path + "\\Logo.dp");
+                        Admin.escribirArchivo();
                     }
                 }
             }
