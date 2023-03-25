@@ -24,6 +24,8 @@ public class Main extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setIconImage(new ImageIcon("./Imagenes\\Logo.jpg").getImage());
+        jF_CrearPartido.setIconImage(new ImageIcon("./Imagenes\\Logo.jpg").getImage());
+        jF_ManejoEquipo.setIconImage(new ImageIcon("./Imagenes\\Logo.jpg").getImage());
         modelo = (DefaultTreeModel) JTree_Torneos.getModel();
         raiz = (DefaultMutableTreeNode) modelo.getRoot();
         //set del arbol        
