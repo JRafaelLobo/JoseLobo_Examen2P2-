@@ -63,6 +63,7 @@ public class Main extends javax.swing.JFrame {
         lb_Admin = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         JTree_Torneos = new javax.swing.JTree();
+        jPB_Subir = new javax.swing.JProgressBar();
 
         jM_CrearDeporte.setText("Crear Deporte");
         jM_CrearDeporte.addActionListener(new java.awt.event.ActionListener() {
@@ -204,18 +205,23 @@ public class Main extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(JTree_Torneos);
 
+        jPB_Subir.setString("Subiendo Archivos");
+        jPB_Subir.setStringPainted(true);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(210, Short.MAX_VALUE)
                 .addComponent(lb_Admin)
                 .addGap(201, 201, 201))
             .addGroup(layout.createSequentialGroup()
                 .addGap(39, 39, 39)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
+                    .addComponent(jPB_Subir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -223,8 +229,10 @@ public class Main extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addComponent(lb_Admin)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPB_Subir, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         pack();
@@ -251,34 +259,18 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_JTree_TorneosMouseClicked
 
     private void jM_GuardarDeporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jM_GuardarDeporteActionPerformed
-        DefaultMutableTreeNode NodoDeporteQ1;
-        DefaultMutableTreeNode NodoDeporteQ2;
-        DefaultMutableTreeNode NodoDeporteQ4;
-        DefaultMutableTreeNode NodoDeporteQ5;
-
         JFileChooser jf = new JFileChooser();
         jf.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         jf.showOpenDialog(this);
         File archivoElegido = jf.getSelectedFile();
+
+        //Analiza cuales otros nodos tiene ese mismo deporte
         for (int i = 0; i < raiz.getChildCount(); i++) {
             DefaultMutableTreeNode Nodo1 = (DefaultMutableTreeNode) raiz.getChildAt(i);
             for (int j = 0; j < Nodo1.getChildCount(); j++) {
-                DefaultMutableTreeNode Nodo2 = (DefaultMutableTreeNode) Nodo1.getChildAt(i);
-                switch (j) {
-                    case 0:
-
-                        break;
-                    case 1:
-
-                        break;
-                    case 2:
-
-                        break;
-                    case 3:
-
-                        break;
-                    default:
-                        throw new AssertionError();
+                DefaultMutableTreeNode Nodo2 = (DefaultMutableTreeNode) Nodo1.getChildAt(j);
+                if (Nodo2.toString().equals(nodo_seleccionado.toString())) {
+                    //aqui van las ordenes
                 }
             }
         }
@@ -309,7 +301,15 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jM_CargarDeporteActionPerformed
 
     private void jM_QuitarDeporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jM_QuitarDeporteActionPerformed
-        nodo_seleccionado.removeFromParent();
+        for (int i = 0; i < raiz.getChildCount(); i++) {
+            DefaultMutableTreeNode Nodo1 = (DefaultMutableTreeNode) raiz.getChildAt(i);
+            for (int j = 0; j < Nodo1.getChildCount(); j++) {
+                DefaultMutableTreeNode Nodo2 = (DefaultMutableTreeNode) Nodo1.getChildAt(j);
+                if (Nodo2.toString().equals(nodo_seleccionado.toString())) {
+                    Nodo2.removeFromParent();
+                }
+            }
+        }
         modelo.reload();
     }//GEN-LAST:event_jM_QuitarDeporteActionPerformed
 
@@ -427,6 +427,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuItem jM_CrearTorneo;
     private javax.swing.JMenuItem jM_GuardarDeporte;
     private javax.swing.JMenuItem jM_QuitarDeporte;
+    private javax.swing.JProgressBar jPB_Subir;
     private javax.swing.JSpinner jS_PuntosEquipo1;
     private javax.swing.JSpinner jS_PuntosEquipo2;
     private javax.swing.JScrollPane jScrollPane1;
