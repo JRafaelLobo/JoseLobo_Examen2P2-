@@ -3,13 +3,55 @@ package Hilos;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JProgressBar;
+import joselobo_examen2p2.Main;
 
-public class ProgressBar {
+public class ProgressBar extends Thread {
 
-    javax.swing.JProgressBar ProgressBar;
-    int SegundosInicio, SegundosFinal;
-    boolean Vivo = true;
-    int torneos;
+    private javax.swing.JProgressBar ProgressBar;
+    private int SegundosInicio, SegundosFinal;
+    private boolean Vivo = true;
+    private int torneos;
+    private Main main;
+
+    public JProgressBar getProgressBar() {
+        return ProgressBar;
+    }
+
+    public void setProgressBar(JProgressBar ProgressBar) {
+        this.ProgressBar = ProgressBar;
+    }
+
+    public int getSegundosInicio() {
+        return SegundosInicio;
+    }
+
+    public void setSegundosInicio(int SegundosInicio) {
+        this.SegundosInicio = SegundosInicio;
+    }
+
+    public boolean isVivo() {
+        return Vivo;
+    }
+
+    public void setVivo(boolean Vivo) {
+        this.Vivo = Vivo;
+    }
+
+    public int getTorneos() {
+        return torneos;
+    }
+
+    public void setTorneos(int torneos) {
+        this.torneos = torneos;
+    }
+
+    public Main getMain() {
+        return main;
+    }
+
+    public void setMain(Main main) {
+        this.main = main;
+    }
 
     public ProgressBar(JProgressBar ProgressBar, int SegundosInicio, int SegundosFinal) {
         this.ProgressBar = ProgressBar;
@@ -45,6 +87,10 @@ public class ProgressBar {
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
             }
+        }
+        ProgressBar.setValue(0);
+        if (main != null) {
+            main.subir();
         }
     }
 }

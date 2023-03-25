@@ -1,9 +1,11 @@
 package joselobo_examen2p2;
 
 import ClasesAdmin.AdminBinario;
+import Hilos.ProgressBar;
 import ObjectosDeExamen2P2Lab.*;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -374,8 +376,19 @@ public class Main extends javax.swing.JFrame {
         jf.showOpenDialog(this);
         File archivoElegido = jf.getSelectedFile();
         path = archivoElegido.getPath();
-        subir();
-
+        CantidadDeTorneos = 0;
+        for (int i = 0; i < raiz.getChildCount(); i++) {
+            DefaultMutableTreeNode Nodo1 = (DefaultMutableTreeNode) raiz.getChildAt(i);
+            for (int j = 0; j < Nodo1.getChildCount(); j++) {
+                DefaultMutableTreeNode Nodo2 = (DefaultMutableTreeNode) Nodo1.getChildAt(j);
+                if (Nodo2.toString().equals(nodo_seleccionado.toString())) {
+                    CuantosTorneos(Nodo2);
+                }
+            }
+        }
+        ProgressBar PB = new ProgressBar(jPB_Subir, CantidadDeTorneos);
+        PB.setMain(this);
+        PB.start();
     }//GEN-LAST:event_jM_GuardarDeporteActionPerformed
 
     private void jM_CrearDeporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jM_CrearDeporteActionPerformed
@@ -602,6 +615,7 @@ public class Main extends javax.swing.JFrame {
     private DefaultMutableTreeNode raiz;
     private ArrayList<Equipo> equipos = new ArrayList();
     public String path;
+    private int CantidadDeTorneos;
 
     public void llenarComboBox(javax.swing.JComboBox<String> comboBox) {
         comboBox.removeAllItems();
@@ -642,16 +656,15 @@ public class Main extends javax.swing.JFrame {
             }
             llenarEquipo(childNode);
         }
+        Collections.sort(equipos, Collections.reverseOrder());
     }
 
-    private int CuantosTorneos(DefaultMutableTreeNode nodo) {
+    private void CuantosTorneos(DefaultMutableTreeNode nodo) {
         for (int i = 0; i < nodo.getChildCount(); i++) {
             DefaultMutableTreeNode childNode = (DefaultMutableTreeNode) nodo.getChildAt(i);
-            if (childNode.getUserObject() instanceof Equipo) {
-                Equipo a = (Equipo) childNode.getUserObject();
-                equipos.add(a);
+            if (childNode.getUserObject() instanceof Torneo) {
+                CantidadDeTorneos++;
             }
-            CuantosTorneos(childNode);
         }
     }
 
@@ -685,5 +698,6 @@ public class Main extends javax.swing.JFrame {
                 }
             }
         }
+        JOptionPane.showMessageDialog(this, "Se ha Guardado Correctamente el Archivo", "Guardado", -1);
     }
 }
