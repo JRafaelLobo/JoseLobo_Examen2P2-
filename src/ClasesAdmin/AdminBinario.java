@@ -2,11 +2,13 @@ package ClasesAdmin;
 
 import ObjectosDeExamen2P2Lab.*;
 import java.io.*;
+import java.util.ArrayList;
 
 public class AdminBinario {
 
     File archivo;
     Deporte D;
+    ArrayList<Deporte> deportes = new ArrayList<>();
 
     public AdminBinario(File archivo, Deporte D) {
         this.archivo = archivo;
@@ -30,11 +32,13 @@ public class AdminBinario {
                 ObjectInputStream objeto = new ObjectInputStream(entrada);
                 try {
                     //datos
-                    temp = (Deporte) objeto.readObject();
+                    while ((temp = (Deporte) objeto.readObject()) != null) {
+                        deportes.add(temp);
+                        //temp = (Deporte) objeto.readObject();
+                    }
                 } catch (EOFException e) {
                     //encontro el final del archivo
                 }
-                D = temp;
                 objeto.close();
                 entrada.close();
             }
