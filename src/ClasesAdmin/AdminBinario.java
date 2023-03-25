@@ -7,34 +7,29 @@ import java.util.ArrayList;
 public class AdminBinario {
 
     File archivo;
-    Deporte D;
     ArrayList<Deporte> deportes = new ArrayList<>();
 
-    public AdminBinario(File archivo, Deporte D) {
-        this.archivo = archivo;
-        this.D = D;
-    }
-
-    public AdminBinario(String ruta, Deporte D) {
+    public AdminBinario(String ruta) {
         this.archivo = new File(ruta);
-        this.D = D;
     }
 
     public AdminBinario(File archivo) {
         this.archivo = archivo;
     }
 
+    public void addDeportes(Deporte D) {
+        deportes.add(D);
+    }
+
     public void cargarArchivo() {
         try {
-            Deporte temp = new Deporte();
+            Deporte temp;
             if (archivo.exists()) {
                 FileInputStream entrada = new FileInputStream(archivo);
                 ObjectInputStream objeto = new ObjectInputStream(entrada);
                 try {
-                    //datos
                     while ((temp = (Deporte) objeto.readObject()) != null) {
                         deportes.add(temp);
-                        //temp = (Deporte) objeto.readObject();
                     }
                 } catch (EOFException e) {
                     //encontro el final del archivo
@@ -53,27 +48,26 @@ public class AdminBinario {
         try {
             fw = new FileOutputStream(archivo);
             bw = new ObjectOutputStream(fw);
-            //datos
-            bw.writeObject(D);
+            for (Deporte t : deportes) {
+                bw.writeObject(t);
+            }
             bw.flush();
         } catch (Exception ex) {
-            ex.printStackTrace();
         } finally {
             try {
                 bw.close();
                 fw.close();
             } catch (Exception ex) {
-                ex.printStackTrace();
             }
         }
     }
 
-    public Deporte getD() {
-        return D;
+    public ArrayList<Deporte> getDeportes() {
+        return deportes;
     }
 
-    public void setD(Deporte D) {
-        this.D = D;
+    public void setDeportes(ArrayList<Deporte> deportes) {
+        this.deportes = deportes;
     }
 
 }

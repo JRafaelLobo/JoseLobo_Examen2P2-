@@ -416,12 +416,12 @@ public class Main extends javax.swing.JFrame {
             File archivoElegido = fc.getSelectedFile();
             AdminBinario A = new AdminBinario(archivoElegido);
             A.cargarArchivo();
-            Deporte deporte = A.getD();
+            ArrayList<Deporte> deportes = A.getDeportes();
 
             //anadir deporte a todas
             for (int i = 0; i < raiz.getChildCount(); i++) {
                 DefaultMutableTreeNode Nodo = (DefaultMutableTreeNode) raiz.getChildAt(i);
-                DefaultMutableTreeNode nodoDeporte = new DefaultMutableTreeNode(deporte);
+                DefaultMutableTreeNode nodoDeporte = new DefaultMutableTreeNode(deportes.get(i));
                 /*for (int j = 0; j < nodoDeporte; j++) {
                     
                 }
@@ -612,9 +612,9 @@ public class Main extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     //Variables Publicas
-    private DefaultTreeModel modelo;
+    private final DefaultTreeModel modelo;
     private DefaultMutableTreeNode nodo_seleccionado;
-    private DefaultMutableTreeNode raiz;
+    private final DefaultMutableTreeNode raiz;
     private ArrayList<Equipo> equipos = new ArrayList();
     public String path;
     private int CantidadDeTorneos;
@@ -672,6 +672,7 @@ public class Main extends javax.swing.JFrame {
 
     public void subir() {
         //Analiza cuales otros nodos tiene ese mismo deporte
+        ArrayList<Deporte> temp = new ArrayList();
         for (int i = 0; i < raiz.getChildCount(); i++) {
             DefaultMutableTreeNode Nodo1 = (DefaultMutableTreeNode) raiz.getChildAt(i);
             for (int j = 0; j < Nodo1.getChildCount(); j++) {
@@ -694,12 +695,15 @@ public class Main extends javax.swing.JFrame {
                             T.addEquipo((Equipo) NodoEquipos2.getUserObject());
                         }
                         D.addTorneo(T);
-                        AdminBinario Admin = new AdminBinario(path + "\\" + D.getNombreDelDeporte() + ".dp", D);
-                        Admin.escribirArchivo();
+                        temp.add(D);
+
                     }
                 }
             }
         }
+        AdminBinario Admin = new AdminBinario(path + "\\" + temp.get(0).getNombreDelDeporte() + ".dp");
+        Admin.setDeportes(temp);
+        Admin.escribirArchivo();
         JOptionPane.showMessageDialog(this, "Se ha Guardado Correctamente el Archivo", "Guardado", -1);
     }
 }
