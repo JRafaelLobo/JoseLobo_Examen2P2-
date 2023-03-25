@@ -275,7 +275,7 @@ public class Main extends javax.swing.JFrame {
                 DefaultMutableTreeNode Nodo2 = (DefaultMutableTreeNode) Nodo1.getChildAt(j);
                 if (Nodo2.toString().equals(nodo_seleccionado.toString())) {
                     //aqui van las ordenes
-                    Deporte D = new Deporte(nodo_seleccionado.toString());
+                    Deporte D = new Deporte(eliminarPrimerasLetras(nodo_seleccionado.toString(), 10));
                     for (int k = 0; k < Nodo2.getChildCount(); k++) {
                         DefaultMutableTreeNode Nodo3 = (DefaultMutableTreeNode) Nodo2.getChildAt(k);
                         Torneo T = (Torneo) Nodo3.getUserObject();
@@ -291,7 +291,7 @@ public class Main extends javax.swing.JFrame {
                             T.addEquipo((Equipo) NodoEquipos2.getUserObject());
                         }
                         D.addTorneo(T);
-                        AdminBinario Admin = new AdminBinario(path + "\\Logo.dp", D);
+                        AdminBinario Admin = new AdminBinario(path + "\\" + D.getNombreDelDeporte() + ".dp", D);
                         Admin.escribirArchivo();
                     }
                 }
@@ -496,6 +496,14 @@ public class Main extends javax.swing.JFrame {
             return true;
         }
         return false;
+    }
+
+    public String eliminarPrimerasLetras(String texto, int cantidadLetrasAEliminar) {
+        if (cantidadLetrasAEliminar >= texto.length()) {
+            return "";
+        } else {
+            return texto.substring(cantidadLetrasAEliminar);
+        }
     }
 
 }

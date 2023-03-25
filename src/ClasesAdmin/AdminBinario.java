@@ -13,7 +13,7 @@ public class AdminBinario {
         this.D = D;
     }
 
-    public AdminBinario(String ruta ,Deporte D) {
+    public AdminBinario(String ruta, Deporte D) {
         this.archivo = new File(ruta);
         this.D = D;
     }
@@ -21,8 +21,6 @@ public class AdminBinario {
     public AdminBinario(File archivo) {
         this.archivo = archivo;
     }
-
-    
 
     public void cargarArchivo() {
         try {
@@ -55,11 +53,13 @@ public class AdminBinario {
             bw.writeObject(D);
             bw.flush();
         } catch (Exception ex) {
+            ex.printStackTrace();
         } finally {
             try {
                 bw.close();
                 fw.close();
             } catch (Exception ex) {
+                ex.printStackTrace();
             }
         }
     }

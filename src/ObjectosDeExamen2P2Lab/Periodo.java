@@ -1,6 +1,8 @@
 package ObjectosDeExamen2P2Lab;
 
-public class Periodo {
+import java.io.Serializable;
+
+public class Periodo implements Serializable{
 
     String NombreDelPeriodo;
 
