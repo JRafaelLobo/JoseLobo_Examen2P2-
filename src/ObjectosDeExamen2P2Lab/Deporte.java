@@ -30,9 +30,13 @@ public class Deporte {
         this.NombreDelDeporte = NombreDelDeporte;
     }
 
+    public void addTorneo(Torneo T) {
+        this.torneos.add(T);
+    }
+
     @Override
     public String toString() {
-        return "(Deporte) "+NombreDelDeporte;
+        return "(Deporte) " + NombreDelDeporte;
     }
 
 }

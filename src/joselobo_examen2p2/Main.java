@@ -252,6 +252,8 @@ public class Main extends javax.swing.JFrame {
                 PP_PackPartidos.show(evt.getComponent(), evt.getX(), evt.getY());
             } else if (nodo_seleccionado.getUserObject() instanceof EquiposPack) {
                 PP_PackEquipos.show(evt.getComponent(), evt.getX(), evt.getY());
+            } else if (nodo_seleccionado.getUserObject() instanceof Torneo) {
+                System.out.println("Aqui Tambien no hay nada");
             } else {
                 PP_CrearDeporte.show(evt.getComponent(), evt.getX(), evt.getY());
             }
@@ -264,6 +266,7 @@ public class Main extends javax.swing.JFrame {
         jf.showOpenDialog(this);
         File archivoElegido = jf.getSelectedFile();
 
+        int TorneosTotales;
         //Analiza cuales otros nodos tiene ese mismo deporte
         for (int i = 0; i < raiz.getChildCount(); i++) {
             DefaultMutableTreeNode Nodo1 = (DefaultMutableTreeNode) raiz.getChildAt(i);
@@ -271,6 +274,24 @@ public class Main extends javax.swing.JFrame {
                 DefaultMutableTreeNode Nodo2 = (DefaultMutableTreeNode) Nodo1.getChildAt(j);
                 if (Nodo2.toString().equals(nodo_seleccionado.toString())) {
                     //aqui van las ordenes
+                    Deporte D = new Deporte(nodo_seleccionado.toString());
+                    for (int k = 0; k < Nodo2.getChildCount(); k++) {
+                        DefaultMutableTreeNode Nodo3 = (DefaultMutableTreeNode) Nodo2.getChildAt(k);
+                        Torneo T = (Torneo) Nodo3.getUserObject();
+
+                        DefaultMutableTreeNode NodoPartidos = (DefaultMutableTreeNode) Nodo3.getChildAt(0);
+                        DefaultMutableTreeNode NodoEquipos = (DefaultMutableTreeNode) Nodo3.getChildAt(1);
+                        for (int l = 0; l < NodoPartidos.getChildCount(); l++) {
+                            DefaultMutableTreeNode NodoPartidos2 = (DefaultMutableTreeNode) NodoPartidos.getChildAt(l);
+                            T.addPartido((Partido) NodoPartidos2.getUserObject());
+                        }
+                        for (int l = 0; l < NodoEquipos.getChildCount(); l++) {
+                            DefaultMutableTreeNode NodoEquipos2 = (DefaultMutableTreeNode) NodoEquipos.getChildAt(l);
+                            T.addEquipo((Equipo) NodoEquipos2.getUserObject());
+                        }
+                        D.addTorneo(T);
+                        System.out.println(D);
+                    }
                 }
             }
         }

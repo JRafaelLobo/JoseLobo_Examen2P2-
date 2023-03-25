@@ -18,6 +18,14 @@ public class Torneo {
         return Nombre;
     }
 
+    public void addEquipo(Equipo E) {
+        equipos.add(E);
+    }
+
+    public void addPartido(Partido E) {
+        partidos.add(E);
+    }
+
     public void setNombre(String Nombre) {
         this.Nombre = Nombre;
     }
@@ -48,7 +56,7 @@ public class Torneo {
 
     @Override
     public String toString() {
-        return "(Torneo) "+Nombre;
+        return "(Torneo) " + Nombre;
     }
 
 }
